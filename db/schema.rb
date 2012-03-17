@@ -24,14 +24,6 @@ ActiveRecord::Schema.define(:version => 20120316155440) do
     t.datetime "updated_at",              :null => false
   end
 
-  create_table "authentications", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "provider"
-    t.string   "uid"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "clients", :force => true do |t|
     t.string   "name"
     t.string   "app_id"
