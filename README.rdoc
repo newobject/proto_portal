@@ -1,3 +1,6 @@
+
+        Client.create!(:name => 'monitor', :app_id => '4a3b4b7eefcdd70b', :app_secret => 'a5e58cc0318eb3a3c48b951a3b086813')
+
 == Welcome to Rails
 
 Rails is a web-application framework that includes everything needed to create

@@ -7,6 +7,7 @@ gem 'rails', '3.2.2'
 
 gem 'sqlite3'
 
+gem 'omniauth'
 gem 'devise'
 
 group :development, :test do
