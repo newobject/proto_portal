@@ -1,11 +1,35 @@
-<dl>
-	<dt>Id</dt>
-	<dd><%= @role.id %></dd>
+<div class="row">
+	<div class="span6">
+		<h2>Role Info</h2>
+		<dl>
+			<dt>Id</dt>
+			<dd><%= @role.id %></dd>
 	
-	<dt>Role Name</dt>
-	<dd><%= @role.name %></dd>
+			<dt>Role Name</dt>
+			<dd><%= @role.name %></dd>
 	
-</dl>
+		</dl>
+	</div>
 
-	<%= link_to 'Edit', edit_admin_role_path(@role) %>
-	<%= link_to 'Back', admin_roles_path %>
+	<div class="span6">
+		<h2>Role Nav Nodes Info</h2>
+		<%= form_for([:admin, @role], html: { class: 'form-horizontal' }) do |f| %>
+			<fieldset>
+				<% @apps.each do |app| %>
+					<div class="control-group">
+						<%= f.label app.name, class: 'control-label' %>
+						<div class="controls">
+							<% app.nav_nodes.each do |nav_node| %>
+								<label class="checkbox">
+									<%= check_box_tag "role[role_nav_nodes_id][]", nav_node.id, @role.include?(nav_node) %>
+									<%= nav_node.name %>
+								</label>
+							<% end %>
+						</div>
+					</div>
+				<% end %>
+			</fieldset>
+		<% end %>
+	</div>
+</div>
+<%= link_to 'Back', admin_roles_path %>

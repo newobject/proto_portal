@@ -10,6 +10,7 @@ class Admin::RolesController < AdminController
   
   def show
     @role = Role.find(params[:id])
+    @apps = App.all
 
     respond_to do |format|
       format.html
@@ -64,6 +65,16 @@ class Admin::RolesController < AdminController
 
     respond_to do |format|
       format.html { redirect_to admin_roles_url }
+      format.json { head :no_content }
+    end
+  end
+  
+  def update_nav_nodes
+    @role = Role.find(params[:id])
+    params[:role][:role_nav_nodes_id] ||= []
+    puts "====================: #{params}"
+
+    respond_to do |format|
       format.json { head :no_content }
     end
   end

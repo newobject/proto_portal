@@ -1,68 +1,74 @@
-<h2>App Info</h2>
-<dl>
-	<dt>Id</dt>
-	<dd><%= @app.id %></dd>
+<div class="row">
+	<div class="span6">
+		<h2>App Info</h2>
+		<dl>
+			<dt>Id</dt>
+			<dd><%= @app.id %></dd>
 	
-	<dt>App Name</dt>
-	<dd><%= @app.name %></dd>
+			<dt>App Name</dt>
+			<dd><%= @app.name %></dd>
 	
-	<dt>App Code</dt>
-	<dd><%= @app.code %></dd>
+			<dt>App Code</dt>
+			<dd><%= @app.code %></dd>
 	
-	<dt>App Secret</dt>
-	<dd><%= @app.secret %></dd>
+			<dt>App Secret</dt>
+			<dd><%= @app.secret %></dd>
 	
-	<dt>App Domain</dt>
-	<dd><%= @app.domain %></dd>
-</dl>
+			<dt>App Domain</dt>
+			<dd><%= @app.domain %></dd>
+		</dl>
+	</div>
 
-<h2>App Nav Node Info</h2>
-<%= link_to 'New Nav Node', new_admin_nav_node_path, id: 'new_nav_node_link' %>
+	<div class="span6">
+		<h2>App Nav Node Info</h2>
+		<%= link_to 'New Nav Node', new_admin_nav_node_path, id: 'new_nav_node_link' %>
 
-<div id="new_nav_node_block" class="hide">
-	<%= form_for([:admin, @nav_node], html: { class: 'form-horizontal' }) do |f| %>
-		<%= f.hidden_field :app_id, value: @app.id %>
-		<fieldset>
-			<div class="control-group">
-				<%= f.label :name, class: 'control-label' %>
-				<div class="controls">
-					<%= f.text_field :name %>
-				</div>
-			</div>
-			<div class="control-group">
-				<%= f.label :url, class: 'control-label' %>
-				<div class="controls">
-					<%= f.text_field :url %>
-				</div>
-			</div>
-			<div class="form-actions">
-				<%= f.submit class: 'btn btn-primary' %>
-				<button class="btn cancel">Cancel</button>
-			</div>
-		</fieldset>
-	<% end %>
+		<div id="new_nav_node_block" class="hide">
+			<%= form_for([:admin, @nav_node], html: { class: 'form-horizontal' }) do |f| %>
+				<%= f.hidden_field :app_id, value: @app.id %>
+				<fieldset>
+					<div class="control-group">
+						<%= f.label :name, class: 'control-label' %>
+						<div class="controls">
+							<%= f.text_field :name %>
+						</div>
+					</div>
+					<div class="control-group">
+						<%= f.label :url, class: 'control-label' %>
+						<div class="controls">
+							<%= f.text_field :url %>
+						</div>
+					</div>
+					<div class="form-actions">
+						<%= f.submit class: 'btn btn-primary' %>
+						<button class="btn cancel">Cancel</button>
+					</div>
+				</fieldset>
+			<% end %>
+		</div>
+
+		<table class="table table-striped" id="nav_nodes_table">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Url</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @app.nav_nodes.each do |nav_node| %>
+					<tr data-id="<%= nav_node.id %>">
+						<td><%= nav_node.name %></td>
+						<td><%= nav_node.url %></td>
+						<td>
+							<a href="#" class="btn btn-danger destroy">Destroy</a>
+						</td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
 </div>
-
-<table class="table table-striped" id="nav_nodes_table">
-	<thead>
-		<tr>
-			<th>Name</th>
-			<th>Url</th>
-			<th>Action</th>
-		</tr>
-	</thead>
-	<tbody>
-		<% @app.nav_nodes.each do |nav_node| %>
-			<tr data-id="<%= nav_node.id %>">
-				<td><%= nav_node.name %></td>
-				<td><%= nav_node.url %></td>
-				<td>
-					<a href="#" class="btn btn-danger destroy">Destroy</a>
-				</td>
-			</tr>
-		<% end %>
-	</tbody>
-</table>
 
 <%= link_to 'Back', admin_apps_path %>
 
