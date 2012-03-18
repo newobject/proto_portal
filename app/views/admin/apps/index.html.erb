@@ -7,6 +7,7 @@
 	    <th>App Name</th>
 	    <th>App code</th>
 	    <th>App Secret</th>
+			<th>App Domain</th>
 	    <th>Action</th>
 	  </tr>
 	</thead>
@@ -17,6 +18,7 @@
 		    <td><%= app.name %></td>
 		    <td><%= app.code %></td>
 		    <td><%= app.secret %></td>
+		    <td><%= app.domain %></td>
 		    <td>
 					<%= link_to 'Edit', edit_admin_app_path(app), class: 'btn btn-info' %>
 					<%= link_to 'Destroy', admin_app_path(app), confirm: 'Are you sure?', method: :delete, class: 'btn btn-danger' %>

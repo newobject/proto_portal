@@ -10,6 +10,7 @@ class Admin::AppsController < AdminController
   
   def show
     @app = App.find(params[:id])
+    @nav_node = NavNode.new
 
     respond_to do |format|
       format.html

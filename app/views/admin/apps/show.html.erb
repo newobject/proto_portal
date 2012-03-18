@@ -1,3 +1,4 @@
+<h2>App Info</h2>
 <dl>
 	<dt>Id</dt>
 	<dd><%= @app.id %></dd>
@@ -10,7 +11,120 @@
 	
 	<dt>App Secret</dt>
 	<dd><%= @app.secret %></dd>
+	
+	<dt>App Domain</dt>
+	<dd><%= @app.domain %></dd>
 </dl>
 
-<%= link_to 'Edit', edit_admin_app_path(@app) %>
+<h2>App Nav Node Info</h2>
+<%= link_to 'New Nav Node', new_admin_nav_node_path, id: 'new_nav_node_link' %>
+
+<div id="new_nav_node_block" class="hide">
+	<%= form_for([:admin, @nav_node], html: { class: 'form-horizontal' }) do |f| %>
+		<%= f.hidden_field :app_id, value: @app.id %>
+		<fieldset>
+			<div class="control-group">
+				<%= f.label :name, class: 'control-label' %>
+				<div class="controls">
+					<%= f.text_field :name %>
+				</div>
+			</div>
+			<div class="control-group">
+				<%= f.label :url, class: 'control-label' %>
+				<div class="controls">
+					<%= f.text_field :url %>
+				</div>
+			</div>
+			<div class="form-actions">
+				<%= f.submit class: 'btn btn-primary' %>
+				<button class="btn cancel">Cancel</button>
+			</div>
+		</fieldset>
+	<% end %>
+</div>
+
+<table class="table table-striped" id="nav_nodes_table">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Url</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @app.nav_nodes.each do |nav_node| %>
+			<tr data-id="<%= nav_node.id %>">
+				<td><%= nav_node.name %></td>
+				<td><%= nav_node.url %></td>
+				<td>
+					<a href="#" class="btn btn-danger destroy">Destroy</a>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+
 <%= link_to 'Back', admin_apps_path %>
+
+<script type="text/javascript">
+	(function($){
+		$(function(){
+			var $newNavNodelink = $("#new_nav_node_link"),
+				$newNavNodeBlock = $("#new_nav_node_block"),
+				$navNodesTable = $("#nav_nodes_table");
+			
+			$navNodesTable.on('click', 'a.destroy', function(e){
+				e.preventDefault();
+				var $link = $(this);
+				
+				$.ajax({
+					url: '/admin/nav_nodes/' + $link.closest('tr').attr("data-id"),
+					type: 'delete',
+					success: function(data){
+						$link.closest('tr').remove();
+					}
+				});
+			});
+			
+			$newNavNodeBlock.find("button.cancel").click(function(e){
+				e.preventDefault();
+				$newNavNodeBlock.slideUp();
+			});
+			
+			$newNavNodeBlock.find("form").submit(function(e){
+				e.preventDefault();
+				
+				var $form = $(this);
+				
+				$newNavNodeBlock.slideUp();
+				
+				$.ajax({
+					url: $form.attr("action"),
+					type: $form.attr("method"),
+					data: $form.serialize(),
+					success: function(data){
+						$navNodesTable.find("tbody").append('\
+							<tr data-id="' + data.id + '">\
+								<td>' + data.name + '</td>\
+								<td>' + data.url + '</td>\
+								<td>\
+									<a href="#" class="btn btn-danger destroy">Destroy</a>\
+								</td>\
+							</tr>\
+						');
+					}
+				});
+			});
+			
+			$newNavNodelink.click(function(e){
+				e.preventDefault();
+				
+				if($newNavNodeBlock.is(':visible')){
+					$newNavNodeBlock.slideUp();
+				}else{	
+					$newNavNodeBlock.slideDown();
+				}
+			});
+		});
+	})(jQuery);
+</script>

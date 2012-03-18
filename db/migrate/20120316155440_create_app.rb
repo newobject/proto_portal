@@ -2,6 +2,7 @@ class CreateApp < ActiveRecord::Migration
   def self.up
     create_table :apps do |t|
       t.string :name
+      t.string :domain
       t.string :code
       t.string :secret
 
