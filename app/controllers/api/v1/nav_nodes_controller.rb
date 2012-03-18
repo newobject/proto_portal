@@ -9,11 +9,7 @@ class Api::V1::NavNodesController < ApplicationController
       app_nav_nodes = nav_nodes_map[nav_node[:app_name]]
       
       unless app_nav_nodes
-        app_nav_nodes = [{
-          id: nav_node[:id],
-          name: nav_node[:name],
-          url: nav_node[:url]
-        }]
+        app_nav_nodes = []
         nav_nodes_map[nav_node[:app_name]] = app_nav_nodes
       end
       
