@@ -69,13 +69,4 @@ class Admin::RolesController < AdminController
     end
   end
   
-  def update_nav_nodes
-    @role = Role.find(params[:id])
-    params[:role][:role_nav_nodes_id] ||= []
-    puts "====================: #{params}"
-
-    respond_to do |format|
-      format.json { head :no_content }
-    end
-  end
 end

@@ -13,11 +13,11 @@
 
 	<div class="span6">
 		<h2>Role Nav Nodes Info</h2>
-		<%= form_for([:admin, @role], html: { class: 'form-horizontal' }) do |f| %>
+		<form class="form-horizontal">
 			<fieldset>
 				<% @apps.each do |app| %>
 					<div class="control-group">
-						<%= f.label app.name, class: 'control-label' %>
+						<%= label_tag app.name, nil, class: 'control-label' %>
 						<div class="controls">
 							<% app.nav_nodes.each do |nav_node| %>
 								<label class="checkbox">
@@ -29,7 +29,7 @@
 					</div>
 				<% end %>
 			</fieldset>
-		<% end %>
+		</form>
 	</div>
 </div>
 <%= link_to 'Back', admin_roles_path %>

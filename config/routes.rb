@@ -15,6 +15,13 @@ ProtoPortal::Application.routes.draw do
     resources :nav_nodes
     root :to => redirect('/admin/apps')
   end
+  
+  namespace :api do
+    namespace :v1 do
+      resources :apps
+      resources :nav_nodes
+    end
+  end
 
   root :to => 'home#index'
 
