@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :access_grants, :dependent => :delete_all
+  has_many :user_app_roles, :dependent => :delete_all
 
   before_validation :initialize_fields, :on => :create
 

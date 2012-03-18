@@ -10,6 +10,9 @@ class Admin::UsersController < AdminController
   
   def show
     @user = User.find(params[:id])
+    @user_app_role = UserAppRole.new
+    @apps = App.all
+    @roles = Role.all
 
     respond_to do |format|
       format.html

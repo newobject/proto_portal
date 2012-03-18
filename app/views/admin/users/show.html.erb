@@ -1,3 +1,4 @@
+<h2>User Info</h2>
 <dl>
 	<dt>Id</dt>
 	<dd><%= @user.id %></dd>
@@ -7,5 +8,131 @@
 	
 </dl>
 
-	<%= link_to 'Edit', edit_admin_user_path(@user) %>
-	<%= link_to 'Back', admin_users_path %>
+<h2>User App Role Info</h2>
+<%= link_to 'New User App Role', new_admin_user_app_role_path, id: 'new_user_app_role_link' %>
+
+<div id="new_user_app_role_block" class="hide">
+	<%= form_for([:admin, @user_app_role], html: { class: 'form-horizontal' }) do |f| %>
+		<fieldset>
+			<div class="control-group">
+				<%= f.label :app, class: 'control-label' %>
+				<div class="controls">
+					<% @apps.each do |app| %>
+						<label class="radio">
+							<%= f.radio_button :app_id, app.id %>
+							<%= app.name %>
+						</label>
+					<% end %>
+				</div>
+			</div>
+			<div class="control-group">
+				<%= f.label :role, class: 'control-label' %>
+				<div class="controls">
+					<% @roles.each do |role| %>
+						<label class="radio">
+							<%= f.radio_button :role_id, role.id %>
+							<%= role.name %>
+						</label>
+					<% end %>
+				</div>
+			</div>
+			<div class="form-actions">
+				<%= f.submit class: 'btn btn-primary' %>
+				<button class="btn cancel">Cancel</button>
+			</div>
+		</fieldset>
+	<% end %>
+</div>
+
+<table class="table table-striped" id="user_app_roles_table">
+	<thead>
+		<tr>
+			<th>App</th>
+			<th>Role</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @user.user_app_roles.each do |user_app_role| %>
+			<tr data-app-id="<%= user_app_role.app.id %>" data-id="<%= user_app_role.id %>">
+				<td><%= user_app_role.app.name %></td>
+				<td><%= user_app_role.role.name %></td>
+				<td>
+					<a href="#" class="btn btn-danger destroy">Destroy</a>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+
+
+<%= link_to 'Back', admin_users_path %>
+
+<script type="text/javascript">
+	(function($){
+		$(function(){
+			var $newUserAppRolelink = $("#new_user_app_role_link"),
+				$newUserAppRoleBlock = $("#new_user_app_role_block"),
+				$userAppRolesTable = $("#user_app_roles_table");
+			
+			$userAppRolesTable.on('click', 'a.destroy', function(e){
+				e.preventDefault();
+				var $link = $(this);
+				
+				$.ajax({
+					url: '/admin/user_app_roles/' + $link.closest('tr').attr("data-id"),
+					type: 'delete',
+					success: function(data){
+						$link.closest('tr').remove();
+					}
+				});
+			});
+			
+			$newUserAppRoleBlock.find("button.cancel").click(function(e){
+				e.preventDefault();
+				$newUserAppRoleBlock.slideUp();
+			});
+			
+			$newUserAppRoleBlock.find("form").submit(function(e){
+				e.preventDefault();
+				
+				var $form = $(this);
+				
+				$newUserAppRoleBlock.slideUp();
+				
+				$.ajax({
+					url: $form.attr("action"),
+					type: $form.attr("method"),
+					data: $form.serialize(),
+					success: function(data){
+						$userAppRolesTable.find("tbody tr").each(function(){
+							var $tr = $(this);
+							if($tr.attr("data-app-id") == data.app.id){
+								$tr.remove();
+							}
+						});
+						$userAppRolesTable.find("tbody").append('\
+							<tr data-id="' + data.id + '" data-app-id="' + data.app.id + '">\
+								<td>' + data.app.name + '</td>\
+								<td>' + data.role.name + '</td>\
+								<td>\
+									<a href="#" class="btn btn-danger destroy">Destroy</a>\
+								</td>\
+							</tr>\
+						');
+					}
+				});
+			});
+			
+			$newUserAppRolelink.click(function(e){
+				e.preventDefault();
+				
+				if($newUserAppRoleBlock.is(':visible')){
+					$newUserAppRoleBlock.slideUp();
+				}else{	
+					$newUserAppRoleBlock.slideDown();
+				}
+			});
+		});
+	})(jQuery);
+</script>

@@ -3,6 +3,7 @@
 <head>
   <title>Proto Portal Admin</title>
   <%= stylesheet_link_tag "application" %>
+  <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -55,6 +56,5 @@
     <%= yield %>
   </div>
 
-  <%= javascript_include_tag "application" %>
 </body>
 </html>

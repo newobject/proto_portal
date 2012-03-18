@@ -10,6 +10,9 @@ class CreateAccessGrants < ActiveRecord::Migration
 
       t.timestamps
     end
+    
+    add_index :access_grants, :user_id
+    add_index :access_grants, :app_id
   end
 
   def self.down

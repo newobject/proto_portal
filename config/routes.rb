@@ -11,6 +11,7 @@ ProtoPortal::Application.routes.draw do
     resources :apps
     resources :roles
     resources :users
+    resources :user_app_roles
     root :to => redirect('/admin/apps')
   end
 
