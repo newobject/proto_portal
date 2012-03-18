@@ -1,0 +1,11 @@
+<dl>
+	<dt>Id</dt>
+	<dd><%= @role.id %></dd>
+	
+	<dt>Role Name</dt>
+	<dd><%= @role.name %></dd>
+	
+</dl>
+
+	<%= link_to 'Edit', edit_admin_role_path(@role), class: 'btn btn-info' %>
+	<%= link_to 'Back', admin_roles_path, class: 'btn' %>

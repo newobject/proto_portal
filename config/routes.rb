@@ -9,6 +9,7 @@ ProtoPortal::Application.routes.draw do
   
   namespace :admin do
     resources :apps
+    resources :roles
     root :to => 'apps#index'
   end
 

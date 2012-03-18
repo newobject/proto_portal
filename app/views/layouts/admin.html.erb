@@ -20,6 +20,9 @@
 						<li class="<%= request.fullpath == admin_apps_path ? 'active' : '' %>" >
 							<%= link_to 'Apps', admin_apps_path %>
 						</li>
+						<li class="<%= request.fullpath == admin_roles_path ? 'active' : '' %>" >
+							<%= link_to 'Roles', admin_roles_path %>
+						</li>
 					</ul>
           <ul class="nav pull-right">
             <li id="user_dropdown" class="dropdown">
