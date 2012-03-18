@@ -10,7 +10,8 @@ ProtoPortal::Application.routes.draw do
   namespace :admin do
     resources :apps
     resources :roles
-    root :to => 'apps#index'
+    resources :users
+    root :to => redirect('/admin/apps')
   end
 
   root :to => 'home#index'

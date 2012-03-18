@@ -17,11 +17,14 @@
         <%= link_to 'Protal Admin', admin_root_path, :class => 'brand' %>
         <div class="nav-collapse">
 					<ul class="nav">
-						<li class="<%= request.fullpath == admin_apps_path ? 'active' : '' %>" >
+						<li class="<%= controller_name == 'apps' ? 'active' : '' %>" >
 							<%= link_to 'Apps', admin_apps_path %>
 						</li>
-						<li class="<%= request.fullpath == admin_roles_path ? 'active' : '' %>" >
+						<li class="<%= controller_name == 'roles' ? 'active' : '' %>" >
 							<%= link_to 'Roles', admin_roles_path %>
+						</li>
+						<li class="<%= controller_name == 'users' ? 'active' : '' %>" >
+							<%= link_to 'Users', admin_users_path %>
 						</li>
 					</ul>
           <ul class="nav pull-right">
