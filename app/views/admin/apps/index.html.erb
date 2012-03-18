@@ -1,0 +1,30 @@
+<h2>Listing admin_apps</h2>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Id</th>
+	    <th>App Name</th>
+	    <th>App code</th>
+	    <th>App Secret</th>
+	    <th>Action</th>
+	  </tr>
+	</thead>
+  <tbody>
+		<% @apps.each do |app| %>
+		  <tr>
+		    <td><%= link_to app.id, admin_app_path(app) %></td>
+		    <td><%= app.name %></td>
+		    <td><%= app.code %></td>
+		    <td><%= app.secret %></td>
+		    <td>
+					<%= link_to 'Edit', edit_admin_app_path(app), class: 'btn btn-info' %>
+					<%= link_to 'Destroy', admin_app_path(app), confirm: 'Are you sure?', method: :delete, class: 'btn btn-danger' %>
+				</td>
+		  </tr>
+		<% end %>
+	</tbody>
+
+</table>
+
+<%= link_to 'New App', new_admin_app_path %>

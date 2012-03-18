@@ -4,12 +4,12 @@ class AuthController < ApplicationController
 
   def authorize
     AccessGrant.prune!
-    access_grant = current_user.access_grants.create({:client => application}, :without_protection => true)
+    access_grant = current_user.access_grants.create({:app => application}, :without_protection => true)
     redirect_to access_grant.redirect_uri_for(params[:redirect_uri])
   end
 
   def access_token
-    application = Client.authenticate(params[:client_id], params[:client_secret])
+    application = App.authenticate(params[:client_id], params[:client_secret])
 
     if application.nil?
       render :json => {:error => "Could not find application"}
@@ -57,7 +57,7 @@ class AuthController < ApplicationController
   protected
 
   def application
-    @application ||= Client.find_by_app_id(params[:client_id])
+    @application ||= App.find_by_code(params[:client_id])
   end
 
 end

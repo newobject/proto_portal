@@ -1,6 +1,6 @@
 class AccessGrant < ActiveRecord::Base
   belongs_to :user
-  belongs_to :client
+  belongs_to :app
   before_create :generate_tokens
 
 
@@ -8,8 +8,8 @@ class AccessGrant < ActiveRecord::Base
     delete_all(["created_at < ?", 3.days.ago])
   end
 
-  def self.authenticate(code, application_id)
-    AccessGrant.where("code = ? AND client_id = ?", code, application_id).first
+  def self.authenticate(code, app_id)
+    AccessGrant.where("code = ? AND app_id = ?", code, app_id).first
   end
 
   def generate_tokens

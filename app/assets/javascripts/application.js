@@ -14,3 +14,4 @@
 //= require jquery_ujs
 //= require bootstrap/2.0.2/bootstrap-dropdown
 //= require bootstrap/2.0.2/bootstrap-collapse
+//= require bootstrap/2.0.2/bootstrap-alert

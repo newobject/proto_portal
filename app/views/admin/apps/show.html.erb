@@ -1,0 +1,16 @@
+<dl>
+	<dt>Id</dt>
+	<dd><%= @app.id %></dd>
+	
+	<dt>App Name</dt>
+	<dd><%= @app.name %></dd>
+	
+	<dt>App Code</dt>
+	<dd><%= @app.code %></dd>
+	
+	<dt>App Secret</dt>
+	<dd><%= @app.secret %></dd>
+</dl>
+
+	<%= link_to 'Edit', edit_admin_app_path(@app), class: 'btn btn-info' %>
+	<%= link_to 'Back', admin_apps_path, class: 'btn' %>

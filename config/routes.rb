@@ -6,6 +6,11 @@ ProtoPortal::Application.routes.draw do
   match '/auth/proto/access_token' => 'auth#access_token'
   match '/auth/proto/user' => 'auth#user'
   match '/oauth/token' => 'auth#access_token'
+  
+  namespace :admin do
+    resources :apps
+    root :to => 'apps#index'
+  end
 
   root :to => 'home#index'
 

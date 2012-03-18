@@ -1,5 +1,5 @@
 
-        Client.create!(:name => 'monitor', :app_id => '4a3b4b7eefcdd70b', :app_secret => 'a5e58cc0318eb3a3c48b951a3b086813')
+        App.create!(:name => 'monitor', :code => '4a3b4b7eefcdd70b', :secret => 'a5e58cc0318eb3a3c48b951a3b086813')
 
 == Welcome to Rails
 
