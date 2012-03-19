@@ -1,5 +1,19 @@
 	git clone git://github.com/newobject/proto_portal.git
+
 	cd protal
+
 	bundle install
+
 	rake db:migrate
+
 	rake db:seed
+
+	rails s
+
+	access http://localhost:3000
+
+	admin ui http://localhost:3000/admin
+
+	user1: bo.zhang.free@yottaa.com/000000
+
+	user2: bo.zhang.pro@yottaa.com/000000
